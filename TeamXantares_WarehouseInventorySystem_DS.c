@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX 100
-
+#define MAX 100 //Inventory size
+//Structure to store details 
 typedef struct {
     char name[50];
     int quantity;
@@ -12,8 +12,8 @@ typedef struct {
 } Item;
 
 Item stack[MAX];
-int top = -1;
-
+int top = -1; //Initialize top
+//Push item into inventory
 void push() {
     if (top == MAX - 1) {
         printf("Inventory is full. Cannot add more items.\n");
@@ -30,7 +30,7 @@ void push() {
     stack[top] = newItem;
     printf("Item added to inventory.\n");
 }
-
+//Remove latest item added in inventory
 void pop() {
     if (top == -1) {
         printf("Inventory is empty. No items to remove.\n");
@@ -40,7 +40,7 @@ void pop() {
     top--;
     printf("Removed item: %s\n", removedItem.name);
 }
-
+//Display inventory summary
 void displaySummary() {
     if (top == -1) {
         printf("Inventory is empty.\n");
