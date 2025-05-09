@@ -4,45 +4,45 @@
 #include <string.h>
 
 #define MAX_QUEUE_SIZE 5
-
+//Structure to represent a print job
 typedef struct {
     int jobId;
     char documentName[50];
     int numPages;
 } PrintJob;
-
+//Structure to represent print queue
 typedef struct {
     PrintJob jobs[MAX_QUEUE_SIZE];
     int front;
     int rear;
 } PrintQueue;
 
-void initializeQueue(PrintQueue* pq) {
+void initializeQueue(PrintQueue* pq) { //Queue is empty during initialization
     pq->front = -1;
     pq->rear = -1;
 }
 
-int isQueueFull(PrintQueue* pq) {
+int isQueueFull(PrintQueue* pq) { //Queue is full
     return pq->rear == MAX_QUEUE_SIZE - 1;
 }
 
-int isQueueEmpty(PrintQueue* pq) {
+int isQueueEmpty(PrintQueue* pq) { //Queue is empty
     return pq->front == -1;
 }
-
-void enqueue(PrintQueue* pq, PrintJob job) {
+//Function to add new print job to queue
+void enqueue(PrintQueue* pq, PrintJob job) { //Check if queue is full
     if (isQueueFull(pq)) {
         printf("Error: Print queue is full. Cannot add new job.\n");
         return;
     }
-    if (isQueueEmpty(pq)) {
+    if (isQueueEmpty(pq)) {//If queue was empty initialize front as 0
         pq->front = 0;
     }
     pq->rear++;
     pq->jobs[pq->rear] = job;
     printf("Added job: %s (ID: %d, Pages: %d)\n", job.documentName, job.jobId, job.numPages);
 }
-
+//Displays print queue
 void printQueue(PrintQueue* pq) {
     if (isQueueEmpty(pq)) {
         printf("No jobs in the print queue.\n");
