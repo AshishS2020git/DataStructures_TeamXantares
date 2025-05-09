@@ -5,24 +5,24 @@
 
 #define MAX_PLAYERS 100
 
-char players[MAX_PLAYERS][50];
-int playerCount = 0;
-int currentPlayerIndex = 0;
-
+char players[MAX_PLAYERS][50]; //2D Array to store names of players , each name is upto 49 characters.
+int playerCount = 0; //Current number of players
+int currentPlayerIndex = 0; //Current Player Index value for traversal & tracking
+//Adding Player in the game
 void addPlayer() {
-    if (playerCount >= MAX_PLAYERS) {
+    if (playerCount >= MAX_PLAYERS) { //Checks if player limit has been reached
         printf("Cannot add more players.\n");
         return;
     }
-    printf("Enter player name: ");
-    scanf(" %[^\n]", players[playerCount]);
+    printf("Enter player name: "); //Enter Player details
+    scanf(" %[^\n]", players[playerCount]); //Read full line including spaces into player array
     playerCount++;
     printf("Player added.\n");
 }
-
-void removePlayer() {
+//Remove player from game
+void removePlayer() { 
     if (playerCount == 0) {
-        printf("No players to remove.\n");
+        printf("No players to remove.\n");  //No player present in game
         return;
     }
 
@@ -30,9 +30,9 @@ void removePlayer() {
     printf("Enter the name of the player to remove: ");
     scanf(" %[^\n]", name);
 
-    int found = -1;
-    for (int i = 0; i < playerCount; i++) {
-        if (strcmp(players[i], name) == 0) {
+    int found = -1; //Initialize index to track
+    for (int i = 0; i < playerCount; i++) { //Traverse loop and find player
+        if (strcmp(players[i], name) == 0) { //Compare strings
             found = i;
             break;
         }
@@ -43,33 +43,33 @@ void removePlayer() {
         return;
     }
 
-    for (int i = found; i < playerCount - 1; i++) {
-        strcpy(players[i], players[i + 1]);
+    for (int i = found; i < playerCount - 1; i++) { //Shift remaining players up in arrau
+        strcpy(players[i], players[i + 1]); //Overwrite Current with next
     }
 
-    playerCount--;
+    playerCount--; //Decrementing player count because player has been removed
     if (currentPlayerIndex >= playerCount) {
         currentPlayerIndex = 0;
     }
 
     printf("Player removed.\n");
 }
-
+//Displays all players
 void showPlayers() {
     printf("\nCurrent Players:\n");
     for (int i = 0; i < playerCount; i++) {
         printf("%d. %s\n", i + 1, players[i]);
     }
 }
-
-void nextTurn() {
+//Shows which players turn is next
+void nextTurn() { 
     if (playerCount == 0) {
         printf("No players in the game.\n");
         return;
     }
 
     printf("\n>> It's %s's turn.\n", players[currentPlayerIndex]);
-    currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
+    currentPlayerIndex = (currentPlayerIndex + 1) % playerCount; //Move to next player
 }
 
 int main() {
